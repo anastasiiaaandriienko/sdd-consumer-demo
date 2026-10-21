@@ -1,4 +1,10 @@
 # Spec: Pinned notes
+
+> **TEST FIXTURE — intentionally incomplete. Do not plan or implement.**
+> It checks that sdd-engineering >= 1.1.0 refuses a spec in which a requirement has no
+> acceptance criterion: FR-2 below has none on purpose, and the `Approved` status imitates
+> a spec approved under 1.0.0 rules. See `docs/plugin-upgrade-1.1.0.md`.
+
 - **Key:** PIN · **Status:** Approved (2026-10-21) · **Date:** 2026-10-21 · **Areas:** src
 - **Source request:** a 1.1.0 upgrade check: a spec approved under 1.0.0 rules where FR-2 has no acceptance criterion.
 
