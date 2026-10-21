@@ -11,6 +11,12 @@
         "source": "github",
         "repo": "anastasiiaaandriienko/dev-digest-ai-marketplace"
       }
+    },
+    "dev-digest-ai-marketplace-stable": {
+      "source": {
+        "source": "url",
+        "url": "https://raw.githubusercontent.com/anastasiiaaandriienko/dev-digest-ai-marketplace/main/channels/stable/.claude-plugin/marketplace.json"
+      }
     }
   }
 }
