@@ -1,6 +1,6 @@
 import { test, beforeEach } from 'node:test';
 import assert from 'node:assert/strict';
-import { addNote, listNotes, resetNotes } from '../src/notes.js';
+import { addNote, listNotes, listNotesByTag, resetNotes } from '../src/notes.js';
 
 beforeEach(() => resetNotes());
 
@@ -60,4 +60,47 @@ test('text is validated before tags', () => {
   assert.throws(() => addNote('', null), /text is required/);
   assert.deepEqual(listNotes(), []);
   assert.equal(addNote('a').id, 1);
+});
+
+function seed() {
+  addNote('one', ['work']);
+  addNote('two', ['home']);
+  addNote('three', ['work', 'home']);
+}
+
+test('listNotesByTag returns matching notes in insertion order', () => {
+  seed();
+  assert.deepEqual(listNotesByTag('work').map((n) => n.id), [1, 3]);
+});
+
+test('listNotesByTag matches case- and whitespace-insensitively', () => {
+  seed();
+  assert.deepEqual(listNotesByTag(' WORK ').map((n) => n.id), [1, 3]);
+});
+
+test('listNotesByTag returns [] when nothing matches', () => {
+  assert.deepEqual(listNotesByTag('none'), []);
+  seed();
+  assert.deepEqual(listNotesByTag('none'), []);
+});
+
+test('listNotesByTag returns copies', () => {
+  seed();
+  const [first] = listNotesByTag('work');
+  first.text = 'changed';
+  assert.equal(listNotes()[0].text, 'one');
+});
+
+test('listNotesByTag rejects missing, non-string or blank tag', () => {
+  assert.throws(() => listNotesByTag(), /tag is required/);
+  assert.throws(() => listNotesByTag(5), /tag is required/);
+  assert.throws(() => listNotesByTag(null), /tag is required/);
+  assert.throws(() => listNotesByTag('  '), /tag is required/);
+});
+
+test('list results do not share tags arrays with the store', () => {
+  addNote('a', ['x']);
+  listNotes()[0].tags.push('y');
+  listNotesByTag('x')[0].tags.push('z');
+  assert.deepEqual(listNotes()[0].tags, ['x']);
 });

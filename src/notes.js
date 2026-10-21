@@ -38,8 +38,17 @@ export function addNote(text, tags) {
   return note;
 }
 
+function copyNote(note) {
+  return { ...note, tags: [...note.tags] };
+}
+
 export function listNotes() {
-  return notes.map((note) => ({ ...note }));
+  return notes.map(copyNote);
+}
+
+export function listNotesByTag(tag) {
+  const t = normalizeTag(tag);
+  return notes.filter((note) => note.tags.includes(t)).map(copyNote);
 }
 
 export function resetNotes() {
