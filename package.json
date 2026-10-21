@@ -1,0 +1,13 @@
+{
+  "name": "sdd-consumer-demo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Independent consumer repository for testing the dev-digest-ai-marketplace plugins.",
+  "scripts": {
+    "test": "node --test \"test/**/*.test.js\""
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
